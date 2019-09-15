@@ -2,13 +2,18 @@ package hyunwook.co.kr.clean_architecture.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AnimationUtils
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import hyunwook.co.kr.clean_architecture.R
+import hyunwook.co.kr.clean_architecture.ui.adapter.BeersAdapter
 import hyunwook.co.kr.clean_architecture.viewmodel.BeersViewModel
 import hyunwook.co.kr.clean_architecture.viewmodel.model.BeerUI
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
@@ -24,6 +29,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun observerLiveData() {
         viewModel.beers.observe(this, Observer(::onBeersReceived))
+        viewModel.isError.observe(this, Observer { onErrorReceived() })
+        viewModel.areEmptyBeers.observe(this, Observer { onEmptyBeersReceived() })
+        viewModel.isLoading.observe(this, Observer(::onLoadingStateReceived))
     }
 
     private fun onBeersReceived(beers: List<BeerUI>) {
@@ -34,7 +42,43 @@ class MainActivity : AppCompatActivity() {
         beersUI?.let {
             recycler_view_beers.layoutManager = LinearLayoutManager(this)
 
-            val beersAdapter =
+            val beersAdapter = BeersAdapter(it.toMutableList(), this)
+            recycler_view_beers.adapter = beersAdapter
+            beersAdapter.updateAdapter(it.toMutableList())
+
+            recycler_view_beers.setHasFixedSize(true)
+            recycler_view_beers.layoutAnimation =
+                AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_fall_down)
         }
     }
+
+    private fun onErrorReceived() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.network_connection_error_title)
+            .setCancelable(false)
+            .setNegativeButton(R.string.network_connection_error_cancel) { _, _ ->
+                finish()
+            }
+            .setPositiveButton(R.string.network_connection_error_action) { _, _ ->
+                viewModel.handleBeersLoad()
+            }.show()
+    }
+
+    private fun onEmptyBeersReceived() {
+
+    }
+
+    private fun onLoadingStateReceived(isLoading: Boolean) {
+        showSpinner(isLoading)
+    }
+
+    private fun showSpinner(isLoading: Boolean) {
+        main_spinner.apply {
+            visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+    }
+
+
+
+
 }

@@ -27,6 +27,7 @@ project.ext {
     KOIN = "2.0.1"
     LIFECYCLE = "2.2.0-alpha04"
     GLIDE = "4.9.0"
+    COROUTINES = "1.1.1"
 }
 
 dependencies {
@@ -41,7 +42,10 @@ dependencies {
     implementation "org.koin:koin-android:$KOIN"
     implementation "org.koin:koin-androidx-scope:$KOIN"
     implementation "org.koin:koin-androidx-viewmodel:$KOIN"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
+
+    //Coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES"
 
     //UI
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
