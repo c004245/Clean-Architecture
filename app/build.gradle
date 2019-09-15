@@ -26,6 +26,7 @@ android {
 project.ext {
     KOIN = "2.0.1"
     LIFECYCLE = "2.2.0-alpha04"
+    GLIDE = "4.9.0"
 }
 
 dependencies {
@@ -50,5 +51,10 @@ dependencies {
     //ViewModel
     implementation "androidx.lifecycle:lifecycle-extensions:$LIFECYCLE"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE"
+
+    //Glide
+    implementation "com.github.bumptech.glide:glide:$GLIDE"
+    kapt "com.github.bumptech.glide:compiler:$GLIDE"
+
 
 }

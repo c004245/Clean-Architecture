@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Clean-Architecture</string>
+    <string name="abv">%1$s º</string>
+    <string name="activity_main_search_button">Disabled search button</string>
+
+    <string name="network_connection_error_title">Network error</string>
+    <string name="network_connection_error_cancel">Cancel</string>
+    <string name="network_connection_error_action">Try again!</string>
+
 </resources>
