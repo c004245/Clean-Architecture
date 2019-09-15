@@ -19,7 +19,7 @@ class ProjectApplication: Application() {
             androidContext(this@ProjectApplication)
             modules(
                 listOf(
-                    
+
                 )
             )
         }
