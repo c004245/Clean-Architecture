@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import hyunwook.co.kr.clean_architecture.R
 import hyunwook.co.kr.clean_architecture.ui.adapter.BeersAdapter
+import hyunwook.co.kr.clean_architecture.ui.mapper.BeerUIMapper
+import hyunwook.co.kr.clean_architecture.ui.model.BeerAdapterModel
 import hyunwook.co.kr.clean_architecture.viewmodel.BeersViewModel
 import hyunwook.co.kr.clean_architecture.viewmodel.model.BeerUI
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,6 +19,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        private const val BUNDLE_KEY_BEERS_ADAPTER_MODEL = "BUNDLE_KEY_BEERS_ADAPTER_MODEL"
+    }
 
     private val viewModel: BeersViewModel by viewModel()
 
@@ -40,16 +46,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun showBeers(beersUI: List<BeerUI>?) {
         beersUI?.let {
-            recycler_view_beers.layoutManager = LinearLayoutManager(this)
-
-            val beersAdapter = BeersAdapter(it.toMutableList(), this)
-            recycler_view_beers.adapter = beersAdapter
-            beersAdapter.updateAdapter(it.toMutableList())
-
-            recycler_view_beers.setHasFixedSize(true)
-            recycler_view_beers.layoutAnimation =
-                AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_fall_down)
+            populateRecyclerView(BeerUIMapper.map(it))
         }
+    }
+
+    private fun populateRecyclerView(beersAdapterModel: List<BeerAdapterModel>) {
+        recycler_view_beers.layoutManager = LinearLayoutManager(this)
+
+        val beersAdapter = BeersAdapter(beersAdapterModel, this)
+        recycler_view_beers.adapter = beersAdapter
+        beersAdapter.updateAdapter(beersAdapterModel)
+
+        recycler_view_beers.setHasFixedSize(true)
+        recycler_view_beers.layoutAnimation =
+            AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_fall_down)
     }
 
     private fun onErrorReceived() {
@@ -77,8 +87,6 @@ class MainActivity : AppCompatActivity() {
             visibility = if (isLoading) View.VISIBLE else View.GONE
         }
     }
-
-
 
 
 }
