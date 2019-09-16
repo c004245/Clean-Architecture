@@ -1,6 +1,9 @@
 package hyunwook.co.kr.clean_architecture.repository
 
 import hyunwook.co.kr.clean_architecture.commons.Result
+import hyunwook.co.kr.clean_architecture.commons.ResultType
+import hyunwook.co.kr.clean_architecture.commons.exception.BadRequestException
+import hyunwook.co.kr.clean_architecture.commons.exception.NetworkConnectionException
 import hyunwook.co.kr.clean_architecture.datasource.BeersNetworkDataSource
 import hyunwook.co.kr.clean_architecture.datasource.model.api.BeersApi
 import hyunwook.co.kr.clean_architecture.domain.BeersRepository
@@ -24,9 +27,12 @@ class HomeRepositoryImpl constructor(
             page = getPageToCheckBeers(page)
 
             beersNetworkDataSource.getAllBeers(page.toString()).let { resultListBeerResponse ->
-                
+                addAllBeersUntilLastPage(resultListBeerResponse)
+                result = initResult(resultListBeerResponse)
             }
-        }
+        } while (result?.resultType != Result.error<Error>().resultType && beers.size == 0)
+
+        return result
     }
 
     private fun getPageToCheckBeers(currentPage: Int): Int {
@@ -47,7 +53,26 @@ class HomeRepositoryImpl constructor(
     }
 
     private fun addAllBeersUntilLastPage(beersApiResult: Result<BeersApi>) {
+        RepositoryMapper.ApiToEntityMappper.map(beersApiResult.data).let { beersEntity ->
+            beersEntity.beers.forEach { beerEntity ->
+                beers.add(beersEntity)
+            }
+        }
     }
 
+    private fun initResult(beersApiResult: Result<BeersApi>): Result<BeersEntity> {
+        return if (beersApiResult.resultType == ResultType.SUCCESS) {
+            Result.success(BeersEntity(beers))
+        } else {
+            if (hasNotMoreBeers(beersApiResult.error)) {
+                Result.success(BeersEntity(beers))
+            } else {
+                Result.error(NetworkConnectionException())
+            }
+        }
+    }
+
+    private fun hasNotMoreBeers(error: Exception?): Boolean {
+        return beers.isNotEmpty() && error == BadRequestException()
+    }
 }
-)
