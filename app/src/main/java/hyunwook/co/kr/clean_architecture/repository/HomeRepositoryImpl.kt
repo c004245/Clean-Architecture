@@ -1,12 +1,13 @@
 package hyunwook.co.kr.clean_architecture.repository
 
-import hyunwook.co.kr.clean_architecture.commons.Result
-import hyunwook.co.kr.clean_architecture.commons.ResultType
+import hyunwook.co.kr.clean_architecture.commons.datatype.Result
+import hyunwook.co.kr.clean_architecture.commons.datatype.ResultType
 import hyunwook.co.kr.clean_architecture.commons.exception.BadRequestException
 import hyunwook.co.kr.clean_architecture.commons.exception.NetworkConnectionException
 import hyunwook.co.kr.clean_architecture.datasource.BeersNetworkDataSource
 import hyunwook.co.kr.clean_architecture.datasource.model.api.BeersApi
 import hyunwook.co.kr.clean_architecture.domain.BeersRepository
+import hyunwook.co.kr.clean_architecture.domain.model.BeerEntity
 import hyunwook.co.kr.clean_architecture.domain.model.BeersEntity
 import hyunwook.co.kr.clean_architecture.repository.mapper.RepositoryMapper
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -15,7 +16,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class HomeRepositoryImpl constructor(
     private val beersNetworkDataSource: BeersNetworkDataSource): BeersRepository {
 
-    private val beers = mutableListOf<BeersEntity>()
+    private val beers = mutableListOf<BeerEntity>()
 
     @ExperimentalCoroutinesApi
     override suspend fun getAllBeers(): Result<BeersEntity>? {
@@ -55,7 +56,7 @@ class HomeRepositoryImpl constructor(
     private fun addAllBeersUntilLastPage(beersApiResult: Result<BeersApi>) {
         RepositoryMapper.ApiToEntityMappper.map(beersApiResult.data).let { beersEntity ->
             beersEntity.beers.forEach { beerEntity ->
-                beers.add(beersEntity)
+                beers.add(beerEntity)
             }
         }
     }

@@ -1,6 +1,6 @@
 package hyunwook.co.kr.clean_architecture.datasource
 
-import hyunwook.co.kr.clean_architecture.commons.Result
+import hyunwook.co.kr.clean_architecture.commons.datatype.Result
 import hyunwook.co.kr.clean_architecture.commons.exception.CancelledFetchDataException
 import hyunwook.co.kr.clean_architecture.datasource.mapper.NetworkMapper
 import hyunwook.co.kr.clean_architecture.datasource.model.BeerResponse
@@ -23,9 +23,9 @@ class BeersNetworkDataSource(private val beersApiService: BeersApiService) {
             try {
                 val request = beersApiService.getAllBeersAsync(page, MAX_RESULTS_PER_PAGE.toString())
 
-                val response: List<BeerResponse>? = request?.await()
+                val response: List<BeerResponse>? = request.await()
 
-                request?.let {
+                request.let {
                     if (it.isCompleted) result = Result.success(NetworkMapper.ResponseToApiMapper.map(response))
                     else if (it.isCancelled) result = Result.error(CancelledFetchDataException())
                 }

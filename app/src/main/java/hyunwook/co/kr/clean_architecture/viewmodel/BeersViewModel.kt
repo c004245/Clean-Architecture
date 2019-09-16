@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import hyunwook.co.kr.clean_architecture.commons.Result
-import hyunwook.co.kr.clean_architecture.commons.ResultType
+import hyunwook.co.kr.clean_architecture.commons.datatype.Result
+import hyunwook.co.kr.clean_architecture.commons.datatype.ResultType
 import hyunwook.co.kr.clean_architecture.domain.usecase.GetBeersUseCase
 import hyunwook.co.kr.clean_architecture.domain.model.BeersEntity
 import hyunwook.co.kr.clean_architecture.viewmodel.mapper.ViewModelMapper

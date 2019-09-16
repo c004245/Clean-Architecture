@@ -1,4 +1,4 @@
-package hyunwook.co.kr.clean_architecture.commons
+package hyunwook.co.kr.clean_architecture.commons.datatype
 
 data class Result<out T>(
     val resultType: ResultType,
@@ -7,10 +7,16 @@ data class Result<out T>(
 ) {
     companion object {
         fun <T> success(data: T?): Result<T> {
-            return Result(ResultType.SUCCESS, data)
+            return Result(
+                ResultType.SUCCESS,
+                data
+            )
         }
         fun <T> error(error: Exception? = null): Result<T> {
-            return Result(ResultType.ERROR, error = error)
+            return Result(
+                ResultType.ERROR,
+                error = error
+            )
         }
     }
 }

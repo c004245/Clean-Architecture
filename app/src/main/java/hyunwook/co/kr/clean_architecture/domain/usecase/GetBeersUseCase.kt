@@ -1,7 +1,7 @@
 package hyunwook.co.kr.clean_architecture.domain.usecase
 
-import hyunwook.co.kr.clean_architecture.commons.Result
-import hyunwook.co.kr.clean_architecture.commons.ResultType
+import hyunwook.co.kr.clean_architecture.commons.datatype.Result
+import hyunwook.co.kr.clean_architecture.commons.datatype.ResultType
 import hyunwook.co.kr.clean_architecture.domain.BeersRepository
 import hyunwook.co.kr.clean_architecture.domain.model.BeersEntity
 

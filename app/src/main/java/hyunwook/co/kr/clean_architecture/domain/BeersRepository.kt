@@ -1,6 +1,6 @@
 package hyunwook.co.kr.clean_architecture.domain
 
-import hyunwook.co.kr.clean_architecture.commons.Result
+import hyunwook.co.kr.clean_architecture.commons.datatype.Result
 import hyunwook.co.kr.clean_architecture.domain.model.BeersEntity
 
 interface BeersRepository {
