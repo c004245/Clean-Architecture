@@ -9,6 +9,7 @@ import retrofit2.Retrofit
 object ProjectModule {
 
     val mainModule = module {
+        factory { provideBeersApiService(get()) }
         factory {  }
     }
 
