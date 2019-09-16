@@ -3,8 +3,9 @@ package hyunwook.co.kr.clean_architecture.datasource
 import hyunwook.co.kr.clean_architecture.commons.datatype.Result
 import hyunwook.co.kr.clean_architecture.commons.exception.CancelledFetchDataException
 import hyunwook.co.kr.clean_architecture.datasource.mapper.NetworkMapper
-import hyunwook.co.kr.clean_architecture.datasource.model.BeerResponse
+import hyunwook.co.kr.clean_architecture.datasource.model.response.BeerResponse
 import hyunwook.co.kr.clean_architecture.datasource.model.api.BeersApi
+import hyunwook.co.kr.clean_architecture.datasource.retrofit.BeersApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.withContext

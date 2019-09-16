@@ -1,4 +1,4 @@
-package hyunwook.co.kr.clean_architecture.datasource.model
+package hyunwook.co.kr.clean_architecture.datasource.model.response
 
 import com.google.gson.annotations.SerializedName
 

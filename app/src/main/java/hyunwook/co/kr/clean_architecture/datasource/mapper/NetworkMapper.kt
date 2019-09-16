@@ -4,7 +4,7 @@ import hyunwook.co.kr.clean_architecture.commons.BaseMapper
 import hyunwook.co.kr.clean_architecture.commons.exception.BadRequestException
 import hyunwook.co.kr.clean_architecture.commons.exception.GenericNetworkException
 import hyunwook.co.kr.clean_architecture.commons.exception.NetworkConnectionException
-import hyunwook.co.kr.clean_architecture.datasource.model.BeerResponse
+import hyunwook.co.kr.clean_architecture.datasource.model.response.BeerResponse
 import hyunwook.co.kr.clean_architecture.datasource.model.api.BeerApi
 import hyunwook.co.kr.clean_architecture.datasource.model.api.BeersApi
 import retrofit2.HttpException

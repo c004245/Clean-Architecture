@@ -1,6 +1,6 @@
-package hyunwook.co.kr.clean_architecture.datasource
+package hyunwook.co.kr.clean_architecture.datasource.retrofit
 
-import hyunwook.co.kr.clean_architecture.datasource.model.BeerResponse
+import hyunwook.co.kr.clean_architecture.datasource.model.response.BeerResponse
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Query
