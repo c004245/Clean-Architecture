@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import hyunwook.co.kr.clean_architecture.R
+import hyunwook.co.kr.clean_architecture.databinding.ActivityMainBinding
 import hyunwook.co.kr.clean_architecture.ui.adapter.BeersAdapter
 import hyunwook.co.kr.clean_architecture.ui.mapper.BeerUIMapper
 import hyunwook.co.kr.clean_architecture.ui.model.BeerAdapterModel
@@ -28,7 +30,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.viewmodel = viewModel
 
         observerLiveData()
     }
@@ -79,7 +83,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onLoadingStateReceived(isLoading: Boolean) {
-        showSpinner(isLoading)
+//        showSpinner(isLoading)
     }
 
     private fun showSpinner(isLoading: Boolean) {

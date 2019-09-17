@@ -78,6 +78,7 @@ class BeersViewModel(private val getBeersUseCase: GetBeersUseCase) : ViewModel()
 
 
     private fun isLoadingLiveData(isLoading: Boolean) {
+        Log.d("TEST", "isLoadingLiveData --$isLoading")
         this.isLoadingLiveData.postValue(isLoading)
     }
 
